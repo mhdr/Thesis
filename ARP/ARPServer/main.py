@@ -1,4 +1,7 @@
 from scapy.all import *
+import threading
+from datetime import datetime
+from datetime import timedelta
 
 from ARPPacket import ARPPacket
 
@@ -17,7 +20,24 @@ def check_packet(pkt):
                                     arp.fields["plen"],arp.fields["op"],arp.fields["hwsrc"],
                                     arp.fields["psrc"],arp.fields["hwdst"],arp.fields["pdst"])
                 ip_mac_list.append(arpPacket)
-                print(len(ip_mac_list))
+                print("+ : {0}".format(len(ip_mac_list)))
 
 
-sniff(prn=lambda x : check_packet(x), filter="arp")
+def startSniff():
+    sniff(prn=lambda x : check_packet(x), filter="arp")
+
+def startGarbageCollector():
+    while True :
+        if len(ip_mac_list)>0:
+            for arp in ip_mac_list:
+                if isinstance(arp,ARPPacket):
+                    now=datetime.now()
+                    delta=timedelta(seconds=30)
+                    if now-arp.Time>delta:
+                        ip_mac_list.remove(arp)
+                        print("- : {0}".format(len(ip_mac_list)))
+
+        time.sleep(0.1)
+
+threading.Thread(target=startSniff).start()
+threading.Thread(target=startGarbageCollector).start()

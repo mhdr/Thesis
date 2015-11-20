@@ -1,3 +1,4 @@
+from datetime import datetime
 
 class ARPPacket:
 
@@ -11,3 +12,4 @@ class ARPPacket:
         self.SenderProtocolAddress=psrc
         self.TargetHardwareAddress=hwdst
         self.TargetProtocolAddress=pdst
+        self.Time=datetime.now()
