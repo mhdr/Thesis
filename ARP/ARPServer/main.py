@@ -7,6 +7,9 @@ from ARPPacket import ARPPacket
 
 ip_mac_list=[]
 
+# ip as key and mac as value
+ip_mac_pairs={}
+
 def check_packet(pkt):
     if ARP in pkt:
         arp= pkt[ARP]
@@ -23,10 +26,10 @@ def check_packet(pkt):
                 print("+ : {0}".format(len(ip_mac_list)))
 
 
-def startSniff():
+def sniffPackets():
     sniff(prn=lambda x : check_packet(x), filter="arp")
 
-def startGarbageCollector():
+def garbageCollector():
     while True :
         if len(ip_mac_list)>0:
             for arp in ip_mac_list:
@@ -39,5 +42,5 @@ def startGarbageCollector():
 
         time.sleep(0.1)
 
-threading.Thread(target=startSniff).start()
-threading.Thread(target=startGarbageCollector).start()
+threading.Thread(target=sniffPackets).start()
+threading.Thread(target=garbageCollector).start()

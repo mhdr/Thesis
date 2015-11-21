@@ -1,0 +1,23 @@
+Nov 20 14:48:00.962 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Nov 20 14:48:00.963 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 33714.
+Nov 20 14:48:00.965 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 20 14:48:00.966 HYPERVISOR: exec_cmd: hypervisor uuid 
+Nov 20 14:48:00.967 HYPERVISOR: exec_cmd: hypervisor working_dir /home/mahmood/GNS3/projects/ARP/project-files/dynamips 
+Nov 20 14:48:00.967 GENERAL: working_dir=/home/mahmood/GNS3/projects/ARP/project-files/dynamips
+Nov 20 14:48:00.967 HYPERVISOR: exec_cmd: nio_bridge create HUB1 
+Nov 20 15:00:13.482 HYPERVISOR: exec_cmd: nio create_udp udp-6a50516c-68fc-4fdc-b70b-89436c98d777 10000 127.0.0.1 10001 
+Nov 20 15:00:13.496 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-6a50516c-68fc-4fdc-b70b-89436c98d777 
+Nov 20 15:00:21.031 HYPERVISOR: exec_cmd: nio create_udp udp-fdb62a06-9299-4dd6-a9c2-2e622cdf07e2 10002 127.0.0.1 10003 
+Nov 20 15:00:21.046 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-fdb62a06-9299-4dd6-a9c2-2e622cdf07e2 
+Nov 20 15:00:26.625 HYPERVISOR: exec_cmd: nio create_udp udp-e20d2c03-5dba-46be-a069-1ce1cff64e29 10005 127.0.0.1 10004 
+Nov 20 15:00:26.639 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-e20d2c03-5dba-46be-a069-1ce1cff64e29 
+Nov 20 15:00:31.103 HYPERVISOR: exec_cmd: nio create_udp udp-6449177e-6488-4ab8-b7dd-4c4d699b84b0 10007 127.0.0.1 10006 
+Nov 20 15:00:31.118 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-6449177e-6488-4ab8-b7dd-4c4d699b84b0 
+Nov 20 15:01:45.707 HYPERVISOR: exec_cmd: nio create_gen_eth generic_ethernet-2fea779d-6e0f-4aed-8548-3395ea725949 eno1 
+Nov 20 15:01:45.754 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 generic_ethernet-2fea779d-6e0f-4aed-8548-3395ea725949 
+Nov 20 15:53:41.202 HYPERVISOR: exec_cmd: nio create_udp udp-7c113779-176a-402a-b68e-617bff58666b 10009 127.0.0.1 10008 
+Nov 20 15:53:41.216 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-7c113779-176a-402a-b68e-617bff58666b 
+Nov 20 15:56:17.127 HYPERVISOR: exec_cmd: nio_bridge delete HUB1 
+Nov 20 15:56:17.249 HYPERVISOR: exec_cmd: hypervisor stop 
+Nov 20 15:56:17.480 HYPERVISOR: Stopped.
+Nov 20 15:56:17.545 GENERAL: reset done.
