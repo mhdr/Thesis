@@ -8,8 +8,8 @@ class ARPPacket:
         self.HardwareLength=hwlen
         self.ProtocolLength=plen
         self.Operation=op
-        self.SenderHardwareAddress=hwsrc
-        self.SenderProtocolAddress=psrc
+        self.SenderHardwareAddress=hwsrc # *
+        self.SenderProtocolAddress=psrc # *
         self.TargetHardwareAddress=hwdst
         self.TargetProtocolAddress=pdst
         self.Time=datetime.now()
