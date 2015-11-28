@@ -3,6 +3,7 @@ import threading
 from datetime import datetime
 from datetime import timedelta
 import copy
+from colorama import Fore
 
 from ARPPacket import ARPPacket
 from IPMAC import IPMAC
@@ -23,9 +24,9 @@ def check_packet(pkt):
                                     arp.fields["plen"],arp.fields["op"],arp.fields["hwsrc"],
                                     arp.fields["psrc"],arp.fields["hwdst"],arp.fields["pdst"])
                 ip_mac_list.append(arpPacket)
-                print("psrc : {0} , hwsrc : {1} ==> ARP Packet + : {2}".format(arpPacket.SenderProtocolAddress,
+                print(Fore.GREEN + "psrc : {0} , hwsrc : {1} ==> ARP Packet + : {2}".format(arpPacket.SenderProtocolAddress,
                                                                                arpPacket.SenderHardwareAddress,
-                                                                               len(ip_mac_list)))
+                                                                               len(ip_mac_list)) + Fore.RESET)
 
 
 def sniffPackets():
@@ -40,9 +41,9 @@ def garbage_collector():
                     delta=timedelta(seconds=60)
                     if now-arp.Time>delta:
                         ip_mac_list.remove(arp)
-                        print("psrc : {0} , hwsrc : {1} ==> ARP Packet - : {2}".format(arp.SenderProtocolAddress,
+                        print(Fore.YELLOW + "psrc : {0} , hwsrc : {1} ==> ARP Packet - : {2}".format(arp.SenderProtocolAddress,
                                                                                arp.SenderHardwareAddress,
-                                                                                       len(ip_mac_list)))
+                                                                                       len(ip_mac_list)) + Fore.RESET)
 
         time.sleep(0.1)
 
@@ -134,15 +135,15 @@ def detect_attack():
                 count=len(filtered_ipmac)
 
                 if count>1:
-                    if ipmac2.IP in hacker_mac_list:
+                    if ipmac2.MAC in hacker_mac_list:
                         pass
                     else:
-                        hacker_mac_list.append(ipmac2.IP)
-                        print("*** {0} is attacking".format(ipmac2.MAC))
+                        hacker_mac_list.append(ipmac2.MAC)
+                        print(Fore.RED + "{0} is attacking".format(ipmac2.MAC) + Fore.RESET)
                 else:
                     if ipmac2.MAC in hacker_mac_list:
                         hacker_mac_list.remove(ipmac2.MAC)
-                        print("*** {0} is no longer attacking".format(ipmac2.MAC))
+                        print(Fore.MAGENTA + "{0} is no longer attacking".format(ipmac2.MAC) + Fore.RESET)
 
         time.sleep(0.1)
 
