@@ -1,3 +1,5 @@
+import rsa
+import uuid
 from scapy.all import *
 import threading
 from datetime import datetime
@@ -7,9 +9,27 @@ from colorama import Fore
 
 from ARPPacket import ARPPacket
 from IPMAC import IPMAC
+import socket
+from Message import Message
+
 
 ip_mac_list=[]
 hacker_mac_list=[]
+counter=0
+
+def get_counter():
+    lock=threading.BoundedSemaphore()
+
+    global counter
+
+    lock.acquire()
+
+    counter=counter+1
+
+    lock.release()
+
+    return counter
+
 
 def check_packet(pkt):
     if ARP in pkt:
@@ -24,7 +44,7 @@ def check_packet(pkt):
                                     arp.fields["plen"],arp.fields["op"],arp.fields["hwsrc"],
                                     arp.fields["psrc"],arp.fields["hwdst"],arp.fields["pdst"])
                 ip_mac_list.append(arpPacket)
-                print(Fore.GREEN + "psrc : {0} , hwsrc : {1} ==> ARP Packet + : {2}".format(arpPacket.SenderProtocolAddress,
+                print("{0} - ".format(get_counter()) +  Fore.GREEN + "psrc : {0} , hwsrc : {1} ==> ARP Packet + : {2}".format(arpPacket.SenderProtocolAddress,
                                                                                arpPacket.SenderHardwareAddress,
                                                                                len(ip_mac_list)) + Fore.RESET)
 
@@ -41,7 +61,8 @@ def garbage_collector():
                     delta=timedelta(seconds=60)
                     if now-arp.Time>delta:
                         ip_mac_list.remove(arp)
-                        print(Fore.YELLOW + "psrc : {0} , hwsrc : {1} ==> ARP Packet - : {2}".format(arp.SenderProtocolAddress,
+                        print("{0} - ".format(get_counter()) +
+                              Fore.YELLOW + "psrc : {0} , hwsrc : {1} ==> ARP Packet - : {2}".format(arp.SenderProtocolAddress,
                                                                                arp.SenderHardwareAddress,
                                                                                        len(ip_mac_list)) + Fore.RESET)
 
@@ -139,15 +160,62 @@ def detect_attack():
                         pass
                     else:
                         hacker_mac_list.append(ipmac2.MAC)
-                        print(Fore.RED + "{0} is attacking".format(ipmac2.MAC) + Fore.RESET)
+                        print("{0} - ".format(get_counter()) + Fore.RED + "{0} is attacking".format(ipmac2.MAC) + Fore.RESET)
                 else:
                     if ipmac2.MAC in hacker_mac_list:
                         hacker_mac_list.remove(ipmac2.MAC)
-                        print(Fore.MAGENTA + "{0} is no longer attacking".format(ipmac2.MAC) + Fore.RESET)
+                        print("{0} - ".format(get_counter()) + Fore.MAGENTA + "{0} is no longer attacking".format(ipmac2.MAC) + Fore.RESET)
 
         time.sleep(0.1)
 
+def get_message1():
+    macs=copy.deepcopy(hacker_mac_list)
+
+    privateFile=open("private.pem")
+    privateData=privateFile.read()
+    privateFile.close()
+
+    privateKey=rsa.PrivateKey.load_pkcs1(privateData)
+
+    uid=str(uuid.uuid1())
+    m=Message.get_sum(macs,uid)
+
+    signature=rsa.sign(m,privateKey,"SHA-256")
+
+    message=Message(macs,uid,signature)
+    return message.dumps()
+
+
+def run_server():
+    HOST = ''
+    PORT = 11000
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((HOST, PORT))
+    s.listen(10)
+
+    while True:
+        conn, addr = s.accept()
+        print("{0} - ".format(get_counter()) + 'Connection from : {0}'.format(addr))
+
+        data_recv=conn.recv(1024)
+        data=bytearray()
+
+        conn.settimeout(1)
+
+        while len(data_recv)>0:
+            data.extend(data_recv)
+            try:
+                data_recv=conn.recv(1024)
+            except socket.timeout:
+                break
+
+        data=str(data)
+        if data=="1":
+            message=get_message1()
+            conn.sendall(message)
+        conn.close()
 
 threading.Thread(target=sniffPackets).start()
 threading.Thread(target=garbage_collector).start()
 threading.Thread(target=detect_attack).start()
+threading.Thread(target=run_server).start()
