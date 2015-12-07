@@ -38,6 +38,10 @@ def fetch():
 
         while len(data_recv)>0:
             data.extend(data_recv)
+
+            if len(data_recv) < 1024:
+                break
+
             try:
                 data_recv=s.recv(1024)
             except socket.timeout:

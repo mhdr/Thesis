@@ -204,6 +204,10 @@ def run_server():
 
         while len(data_recv)>0:
             data.extend(data_recv)
+
+            if len(data_recv) < 1024:
+                break
+
             try:
                 data_recv=conn.recv(1024)
             except socket.timeout:
