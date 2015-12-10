@@ -33,7 +33,7 @@ while True:
 
     params={}
 
-    params["name"]=paramsRcvd["name"]
+    params["msg"]="Hello {0}".format(paramsRcvd["name"])
     params["time"]=datetime.now()
 
     message = pickle.dumps(params)
