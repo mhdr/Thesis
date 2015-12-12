@@ -11,6 +11,7 @@ from ARPPacket import ARPPacket
 from IPMAC import IPMAC
 import socket
 from Message import Message
+from mac import MAC
 
 
 ip_mac_list=[]
@@ -187,8 +188,8 @@ def get_message1():
 
 
 def run_server():
-    HOST = ''
-    PORT = 11000
+    global HOST
+    global PORT
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
     s.listen(10)
@@ -217,7 +218,16 @@ def run_server():
         if data=="1":
             message=get_message1()
             conn.sendall(message)
+        elif data=="2":
+            global ifname
+            current_mac= MAC.get_local_mac(ifname)
+            conn.sendall(current_mac)
+
         conn.close()
+
+ifname="eno1"
+HOST=''
+PORT=11000
 
 threading.Thread(target=sniffPackets).start()
 threading.Thread(target=garbage_collector).start()
