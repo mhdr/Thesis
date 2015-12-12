@@ -179,7 +179,7 @@ def get_message1():
     privateKey=rsa.PrivateKey.load_pkcs1(privateData)
 
     uid=str(uuid.uuid1())
-    m=Message.get_sum(macs,uid)
+    m=Message.get_sum(macs,uid,datetime.now())
 
     signature=rsa.sign(m,privateKey,"SHA-256")
 

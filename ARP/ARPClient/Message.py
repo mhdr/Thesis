@@ -1,17 +1,19 @@
 import json
 import rsa
-import binascii
+from datetime import datetime
 import struct
 import io
 import pickle
 
 
 class Message :
-    def __init__(self,macs,uuid,signature):
+    def __init__(self,macs,uuid,time,signature):
         self.uuid=uuid
 
         self.macs=macs
         """:type: list"""
+
+        self.time=time
 
         self.signature=signature
 
@@ -86,11 +88,19 @@ class Message :
             return False
 
     @staticmethod
-    def get_sum(macs,uid):
+    def get_sum(macs,uid,time):
+        """
+
+        :param macs:
+        :param uid:
+        :param time:
+        :return:
+        :type time:datetime
+        """
         m=""
 
         for mac in macs:
             m=m+mac
 
-        m=m+uid
+        m=m+uid+time
         return m

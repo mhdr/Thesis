@@ -2,6 +2,7 @@ import socket
 import threading
 from colorama import Fore
 from datetime import datetime
+from datetime import timedelta
 import os
 
 import time
@@ -57,26 +58,32 @@ def fetch():
 
         if len(data)>0:
 
-            reset_timer()
-
             message= Message.loads(data)
+            if False:assert isinstance(message,Message)
+
+            current_time=datetime.now()
 
             if len(message.macs)>0:
                 if message.verify():
-                    for mac in message.macs:
 
-                        global mac_list
-                        if mac not in mac_list:
-                            cmd1="arptables -A INPUT --source-mac {0} -j DROP".format(mac)
-                            cmd2="iptables -A INPUT -m mac --mac-source {0} -j DROP".format(mac)
-                            cmd3="ip neighbour flush all"
-                            os.system(cmd1)
-                            os.system(cmd2)
-                            os.system(cmd3)
+                    if current_time - message.time < timedelta(seconds=5):
 
-                            mac_list.append(mac)
+                        for mac in message.macs:
 
-                        print("{0} - ".format(get_counter()) +  Fore.MAGENTA + "MAC : {0}".format(mac) + Fore.RESET)
+                            global mac_list
+                            if mac not in mac_list:
+                                cmd1="arptables -A INPUT --source-mac {0} -j DROP".format(mac)
+                                cmd2="iptables -A INPUT -m mac --mac-source {0} -j DROP".format(mac)
+                                cmd3="ip neighbour flush all"
+                                os.system(cmd1)
+                                os.system(cmd2)
+                                os.system(cmd3)
+
+                                mac_list.append(mac)
+
+                            print("{0} - ".format(get_counter()) +  Fore.MAGENTA + "MAC : {0}".format(mac) + Fore.RESET)
+
+                        reset_timer()
                 else:
                     print("{0} - ".format(get_counter()) +  Fore.RED +
                           "We received some data,but it seems they are manipulated." + Fore.RESET)
@@ -95,6 +102,8 @@ def fetch():
 
 
                 print("{0} - ".format(get_counter()) +  Fore.GREEN + "Safe" + Fore.RESET)
+
+                reset_timer()
 
         time.sleep(1)
 
