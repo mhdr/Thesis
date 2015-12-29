@@ -1,0 +1,21 @@
+configure terminal
+
+interface fastEthernet 0/0
+ip address 10.10.1.1 255.255.255.0
+no shutdow
+exit
+
+interface fastEthernet 0/1
+ip address 10.10.2.1 255.255.255.0
+no shutdow
+exit
+
+router rip
+version 2
+network 10.10.1.0
+network 10.10.2.0
+exit
+
+exit
+
+copy running-config startup-config

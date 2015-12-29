@@ -1,0 +1,21 @@
+Dec 25 17:55:37.771 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Dec 25 17:55:37.771 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 33733.
+Dec 25 17:55:37.774 HYPERVISOR: exec_cmd: hypervisor version 
+Dec 25 17:55:37.774 HYPERVISOR: exec_cmd: hypervisor uuid 
+Dec 25 17:55:37.774 HYPERVISOR: exec_cmd: hypervisor working_dir /root/GNS3/ARP/project-files/dynamips 
+Dec 25 17:55:37.774 GENERAL: working_dir=/root/GNS3/ARP/project-files/dynamips
+Dec 25 17:55:37.775 HYPERVISOR: exec_cmd: nio_bridge create HUB1 
+Dec 25 17:55:39.623 HYPERVISOR: exec_cmd: nio create_udp udp-69d889fd-c80a-4782-ab96-ef7254910364 10000 127.0.0.1 10001 
+Dec 25 17:55:39.624 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-69d889fd-c80a-4782-ab96-ef7254910364 
+Dec 25 17:55:39.665 HYPERVISOR: exec_cmd: nio create_udp udp-486b5803-fa17-43ef-a64a-9d9916415946 10002 127.0.0.1 10003 
+Dec 25 17:55:39.687 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-486b5803-fa17-43ef-a64a-9d9916415946 
+Dec 25 17:55:39.725 HYPERVISOR: exec_cmd: nio create_udp udp-1fb173c2-e439-40d7-bb69-6b412029a9aa 10004 127.0.0.1 10005 
+Dec 25 17:55:39.725 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-1fb173c2-e439-40d7-bb69-6b412029a9aa 
+Dec 25 17:55:40.193 HYPERVISOR: exec_cmd: nio create_udp udp-7ee717de-20a6-4d77-9275-e2499aa4b76f 10010 127.0.0.1 10011 
+Dec 25 17:55:40.194 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-7ee717de-20a6-4d77-9275-e2499aa4b76f 
+Dec 25 17:55:40.438 HYPERVISOR: exec_cmd: nio create_udp udp-e037566f-4085-4849-aa40-43d3252cd942 10015 127.0.0.1 10014 
+Dec 25 17:55:40.456 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-e037566f-4085-4849-aa40-43d3252cd942 
+Dec 25 17:55:40.508 HYPERVISOR: exec_cmd: nio create_udp udp-df17af09-1f48-4a64-b2c6-4c7a1d7cba6a 10016 127.0.0.1 10017 
+Dec 25 17:55:40.509 HYPERVISOR: exec_cmd: nio_bridge add_nio HUB1 udp-df17af09-1f48-4a64-b2c6-4c7a1d7cba6a 
+Dec 25 18:31:32.106 HYPERVISOR: exec_cmd: nio_bridge rename HUB1 SW1 
+Dec 25 18:44:38.202 HYPERVISOR: exec_cmd: nio_bridge delete SW1 

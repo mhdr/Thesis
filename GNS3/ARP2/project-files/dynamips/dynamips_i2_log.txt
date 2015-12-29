@@ -1,0 +1,37 @@
+Dec 26 20:58:03.699 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Dec 26 20:58:03.699 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 40029.
+Dec 26 20:58:03.703 HYPERVISOR: exec_cmd: hypervisor version 
+Dec 26 20:58:03.703 HYPERVISOR: exec_cmd: hypervisor uuid 
+Dec 26 20:58:03.704 HYPERVISOR: exec_cmd: hypervisor working_dir /root/GNS3/ARP2/project-files/dynamips 
+Dec 26 20:58:03.704 GENERAL: working_dir=/root/GNS3/ARP2/project-files/dynamips
+Dec 26 20:58:03.704 HYPERVISOR: exec_cmd: vm create R2 2 c3725 
+Dec 26 20:58:03.810 VM: VM R2 created.
+Dec 26 20:58:03.811 HYPERVISOR: exec_cmd: vm set_con_tcp_port R2 2002 
+Dec 26 20:58:03.811 HYPERVISOR: exec_cmd: c3725 get_mac_addr R2 
+Dec 26 20:58:03.812 HYPERVISOR: exec_cmd: vm get_status R2 
+Dec 26 20:58:03.828 HYPERVISOR: exec_cmd: vm set_idle_pc R2 0x6026b804 
+Dec 26 20:58:03.828 HYPERVISOR: exec_cmd: c3725 set_mac_addr R2 c202.220f.0000 
+Dec 26 20:58:03.829 HYPERVISOR: exec_cmd: vm set_ios R2 /home/mahmood/GNS3/images/IOS/c3725-adventerprisek9-mz.124-15.T10.image 
+Dec 26 20:58:03.829 HYPERVISOR: exec_cmd: vm set_nvram R2 256 
+Dec 26 20:58:03.830 HYPERVISOR: exec_cmd: vm set_disk0 R2 0 
+Dec 26 20:58:03.830 HYPERVISOR: exec_cmd: vm set_config R2 configs/i2_startup-config.cfg 
+Dec 26 20:58:09.079 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Dec 26 20:58:09.080 HYPERVISOR: exec_cmd: vm set_ghost_file R2 c3725-adventerprisek9-mz.124-15.T10.image-128.ghost 
+Dec 26 20:58:09.209 HYPERVISOR: exec_cmd: nio create_udp udp-15b262c9-8056-43cd-b5fb-91f9933b841e 10015 127.0.0.1 10014 
+Dec 26 20:58:09.247 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 0 0 udp-15b262c9-8056-43cd-b5fb-91f9933b841e 
+Dec 26 20:58:09.248 HYPERVISOR: exec_cmd: vm get_status R2 
+Dec 26 20:58:09.273 HYPERVISOR: exec_cmd: nio create_udp udp-b0a5bd6f-75f4-4982-8d5a-f29fed1fac65 10013 127.0.0.1 10012 
+Dec 26 20:58:09.299 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 0 1 udp-b0a5bd6f-75f4-4982-8d5a-f29fed1fac65 
+Dec 26 20:58:09.301 HYPERVISOR: exec_cmd: vm get_status R2 
+Dec 26 20:58:44.008 HYPERVISOR: exec_cmd: vm get_status R2 
+Dec 26 20:58:44.009 HYPERVISOR: exec_cmd: vm start R2 
+Dec 26 21:03:57.986 HYPERVISOR: exec_cmd: vm get_status R2 
+Dec 26 21:03:57.987 HYPERVISOR: exec_cmd: vm stop R2 
+Dec 26 21:03:58.088 VM: VM R2 shutdown.
+Dec 26 21:04:04.908 HYPERVISOR: exec_cmd: vm get_status R2 
+Dec 26 21:04:04.910 HYPERVISOR: exec_cmd: vm extract_config R2 
+Dec 26 21:04:04.911 HYPERVISOR: exec_cmd: vm delete R2 
+Dec 26 21:04:04.911 VM: VM R2 destroyed.
+Dec 26 21:04:04.915 HYPERVISOR: exec_cmd: hypervisor stop 
+Dec 26 21:04:05.063 HYPERVISOR: Stopped.
+Dec 26 21:04:05.063 GENERAL: reset done.
